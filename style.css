@@ -211,7 +211,7 @@ body.night .night-text {
     transform: translateY(-50%) translateX(0);
 }
 /* ================= OFFERS ================= */
-
+/* ========================================== BEGINING OF OFFER SECTION ================= */
 
 
 #offers {
@@ -219,6 +219,24 @@ body.night .night-text {
 }
 
 /* kontenery dzień/noc */
+
+#day-offers,
+#night-offers {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 30px;
+
+    padding: 0 70px;
+
+    align-items: start;
+
+}
+
+/*
 #day-offers,
 #night-offers {
 
@@ -230,7 +248,13 @@ body.night .night-text {
     gap: 40px;
 
     padding: 0 70px;
+
+    align-items: stretch;
 }
+
+*/
+
+
 /* nocne oferty ukryte */
 #night-offers {
     display: none;
@@ -242,19 +266,24 @@ body.night #day-offers {
 }
 
 body.night #night-offers {
-    display: flex;
+    display: block;
 }
 
+/*
+body.night #night-offers {
+    display: flex;
+}
+*/
 /* karta oferty */
+
 .offer {
     width: 100%;
-
 
     background: white;
 
     border-radius: 24px;
 
-    overflow: hidden;
+    overflow: visible;
 
     box-shadow:
         0 10px 30px rgba(0,0,0,0.08);
@@ -265,13 +294,35 @@ body.night #night-offers {
 
     padding-bottom: 30px;
 
-    /* 🔥 FONT DOMYŚLNY */
     font-family: 'Lato', sans-serif;
     font-weight: 400;
 
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    margin-bottom: 30px;
+
+
+    
+}
+
+.offer-hidden {
+
+    max-height: 0;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transition:
+        max-height 0.5s ease,
+        opacity 0.3s ease;
+}
+
+/* po kliknięciu */
+
+.offer.expanded .offer-hidden {
+
+    max-height: 2000px;
+
+    opacity: 1;
 }
 
 /* hover */
@@ -283,26 +334,63 @@ body.night #night-offers {
     filter: brightness(1.02);
 }
 
-/* obraz */
+/* ================= IMG OFFER ================= */
+
 .offer img {
+
     width: 100%;
+
     height: 320px;
+
     object-fit: cover;
+
+    object-position: center;
+
+    display: block;
+
+    /* PREMIUM LOOK */
+    filter:
+        saturate(0.92)
+        contrast(1.03)
+        brightness(0.98);
+
+    transition:
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+/* DELIKATNY HOVER */
+
+.offer:hover img {
+
+    transform: scale(1.03);
+
+    filter:
+        saturate(1)
+        contrast(1.05)
+        brightness(1);
 }
 
 /* TYTUŁ */
 .offer h2 {
-    font-size: 34px;
-
-    margin: 30px 0;
-
-    padding: 0 30px;
-
+    font-size: 24px;
+    margin: 18px 0;
+    padding: 0 26px;
+    letter-spacing: -0.3px;
     /* 🔥 LATO BOLD */
     font-family: 'Lato', sans-serif;
     font-weight: 700;
 
     line-height: 1.3;
+
+}
+
+.offer-description {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #666;
+    padding: 0 26px;
+    margin-bottom: 18px;
 }
 
 /* tekst */
@@ -324,62 +412,65 @@ body.night #night-offers {
 
 /* lista */
 .offer ul {
-    padding: 0 50px 20px;
+    padding: 0 26px 20px;
+    list-style: none;
+    /*flex-grow: 1;*/
+
+}
+
+.offer ul li {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    padding-left: 18px;
+    position: relative;
+    
+    color: #333;
+    /* 🔥 LATO REGULAR */
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+
+.offer ul li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #c8a45c;
+    position: absolute;
+    left: 0;
+    top: 9px;
+    display: none;
+    
+    color: #333;
+    /* 🔥 LATO REGULAR */
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
 }
 
 /* cena */
 .price {
-    margin: 30px;
+    margin: 24px;
+    padding: 18px;
+    border-radius: 14px;
 
-    padding: 25px;
+    background: linear-gradient(
+        135deg,
+        rgba(200,160,90,0.10),
+        rgba(255,255,255,0.02)
+    );
 
-    border-radius: 18px;
+    border: 1px solid rgba(200,160,90,0.18);
 
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,180,0,0.08),
-            rgba(255,120,0,0.05)
-        );
-
-    border: 1px solid rgba(255,180,0,0.15);
-
-    font-size: 18px;
-    line-height: 1.8;
-
-    color: #222;
-
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
+    /* 🔥 KLUCZ DO UKŁADU */
     margin-top: auto;
+
+    /* opcjonalnie dla lepszego looku */
+    backdrop-filter: blur(6px);
 }
 
-/* ================= TABLET ================= */
 
-@media (max-width: 1100px) {
-
-    #day-offers,
-    #night-offers {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-        padding: 0 40px;
-    }
-}
-
-/* ================= MOBILE ================= */
-
-@media (max-width: 700px) {
-
-    #day-offers,
-    #night-offers {
-
-        grid-template-columns: 1fr;
-
-        padding: 0 20px;
-    }
-}
 
 /* ================= NIGHT MODE ================= */
 
@@ -419,6 +510,65 @@ body.night .price {
     border: 1px solid rgba(180,120,255,0.15);
 
     color: white;
+}
+
+.toggle-offer {
+
+    margin: 20px auto 0;
+
+    display: block;
+
+    border: none;
+
+    background: #c8a45c;
+
+    color: white;
+
+    padding: 12px 22px;
+
+    border-radius: 999px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.3s ease;
+}
+
+.toggle-offer:hover {
+
+    transform: scale(1.05);
+
+    opacity: 0.9;
+}
+
+/* ========================================== END OF OFFER SECTION ================= */
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1100px) {
+
+    #day-offers,
+    #night-offers {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        padding: 0 40px;
+    }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 700px) {
+
+    #day-offers,
+    #night-offers {
+
+        grid-template-columns: 1fr;
+
+        padding: 0 20px;
+    }
 }
 
 /* ================= CONTACT ================= */
