@@ -1,21 +1,32 @@
-const sunContainer = document.getElementById("sun-container");
-
 let isNight = false;
 let isAnimating = false;
+
+function initTheme() {
+
+    const hour = new Date().getHours();
+
+    // noc: 20–6
+    isNight = (hour >= 20 || hour < 4);
+
+    document.body.classList.toggle("night", isNight);
+
+    if (isNight) {
+        launchStar();
+    }
+}
+
+const sunContainer = document.getElementById("sun-container");
 
 sunContainer.addEventListener("click", () => {
 
     if (isAnimating) return;
 
-    const body = document.body;
-
     isAnimating = true;
 
     isNight = !isNight;
 
-    body.classList.toggle("night", isNight);
+    document.body.classList.toggle("night", isNight);
 
-    // odpalanie / zatrzymanie efektów
     if (isNight) {
         launchStar();
     }
@@ -41,6 +52,34 @@ for (let i = 0; i < 150; i++) {
 
     starsContainer.appendChild(star);
 }
+
+const buttons = document.querySelectorAll(".toggle-offer");
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const clickedOffer = button.closest(".offer");
+        const isAlreadyOpen = clickedOffer.classList.contains("expanded");
+
+        // zamknij wszystkie
+        document.querySelectorAll(".offer").forEach(offer => {
+
+            offer.classList.remove("expanded");
+
+            const btn = offer.querySelector(".toggle-offer");
+            if (btn) btn.textContent = "Więcej";
+        });
+
+        // jeśli kliknięta NIE była otwarta → otwórz ją
+        if (!isAlreadyOpen) {
+
+            clickedOffer.classList.add("expanded");
+
+            button.textContent = "Mniej";
+        }
+    });
+});
 
 function launchStar() {
 
@@ -176,3 +215,20 @@ function launchStar() {
 
     animate();
 }
+
+
+function sortOffers(containerId) {
+    const container = document.getElementById(containerId);
+
+    const offers = Array.from(container.querySelectorAll(".offer"));
+
+    offers.sort((a, b) => {
+        return a.dataset.order - b.dataset.order;
+    });
+
+    offers.forEach(el => container.appendChild(el));
+}
+
+sortOffers("day-offers");
+sortOffers("night-offers");
+initTheme();
