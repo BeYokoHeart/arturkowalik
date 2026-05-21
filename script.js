@@ -95,6 +95,7 @@ function launchStar() {
     const questionsRect = questions.getBoundingClientRect();
 
     let progress = 0;
+    let speed = 0.0035;
 
     // START (hero)
     const startX = window.innerWidth * 0.05;
@@ -133,8 +134,26 @@ function launchStar() {
         // =========================
         // FAZA 1
         // =========================
+        //if (progress < stopPoint && !paused) {
+        //    progress += 0.0035;
+        //}
+
+        // =========================
+        // FAZA 1 + WYHAMOWANIE
+        // =========================
+
         if (progress < stopPoint && !paused) {
-            progress += 0.0035;
+
+            // im bliżej stopPoint tym wolniej
+            const distanceToStop =
+                stopPoint - progress;
+
+            // cinematic slowdown
+            speed =
+                0.001 +
+                distanceToStop * 0.02;
+
+            progress += speed;
         }
 
         // =========================
@@ -147,14 +166,30 @@ function launchStar() {
 
             setTimeout(() => {
                 paused = false;
+                star.classList.add("star-pulse");
             }, 2500);
         }
 
         // =========================
         // FAZA 2
         // =========================
+        //else if (!paused) {
+        //    progress += 0.0035;
+        //}
+
+        // =========================
+        // PRZYSPIESZENIE PO STOPOWANIU
+        // =========================
+
         else if (!paused) {
-            progress += 0.0035;
+
+            // acceleration
+            speed += 0.00015;
+
+            // limit max speed
+            speed = Math.min(speed, 0.0065);
+
+            progress += speed;
         }
 
         // =========================
@@ -166,7 +201,7 @@ function launchStar() {
 
             setTimeout(() => {
                 launchStar();
-            }, 10000); // czestotliwość przelotu 10 sec.
+            }, 50000); // czestotliwość przelotu 10 sec.
 
             return;
         }
@@ -229,6 +264,28 @@ function sortOffers(containerId) {
     offers.forEach(el => container.appendChild(el));
 }
 
+
+function filterActiveOffers(containerId) {
+
+    const container = document.getElementById(containerId);
+
+    const offers = container.querySelectorAll(".offer");
+
+    offers.forEach(offer => {
+
+        const isActive =
+            offer.dataset.active === "true";
+
+        if (isActive) {
+            offer.style.display = "";
+        } else {
+            offer.style.display = "none";
+        }
+    });
+}
 sortOffers("day-offers");
 sortOffers("night-offers");
+
+filterActiveOffers("day-offers");
+filterActiveOffers("night-offers");
 initTheme();
