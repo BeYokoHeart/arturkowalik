@@ -1,0 +1,590 @@
+/* =========================
+   AREAS
+========================= */
+
+.coin-area,
+.hexagram-area,
+.result-area {
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+  .main-title {
+    font-size: 2.8rem;
+    letter-spacing: 6px;
+  }
+
+  .app-title {
+    letter-spacing: 3px;
+  }
+
+}
+
+/* =========================
+   HEXAGRAM VISUAL (STAGE 3 FIX)
+========================= */
+
+.hexagram-area {
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* pojedyncza linia */
+.line {
+  width: 160px;
+  height: 10px;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.4s ease;
+}
+
+/* YANG = pełna linia */
+.line.yang {
+  background: #e8dcc0;
+}
+
+/* YIN = przerwana linia */
+.line.yin {
+  background: linear-gradient(
+    to right,
+    #e8dcc0 40%,
+    transparent 40%,
+    transparent 60%,
+    #e8dcc0 60%
+  );
+}
+
+.line.changing {
+  opacity: 0.65;
+  filter: brightness(0.85);
+  transition: all 0.4s ease;
+}
+
+/* changing lines 
+.line.changing {
+  outline: 1px solid #c8a96b;
+  box-shadow: 0 0 10px rgba(200, 169, 107, 0.3);
+}
+*/
+/* animacja pojawiania */
+.line {
+  animation: fadeIn 0.4s ease;
+}
+
+.secondary-hexagram {
+  margin-top: 40px;
+  opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+/* =========================
+   RESULT BOX
+========================= */
+
+.result {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.symbol {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.keywords {
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+
+
+
+
+
+/* =========================
+   REAL I-CHING COIN
+========================= */
+
+.coin {
+  width: 54px;
+  height: 54px;
+
+  position: relative;
+
+  border-radius: 50%;
+
+  /* metal zen */
+  background: radial-gradient(circle at 30% 30%,
+    #f3e7c9 0%,
+    #d1b06a 40%,
+    #8a6b3d 100%
+  );
+
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.5),
+    inset 0 -2px 4px rgba(255,255,255,0.15),
+    0 6px 10px rgba(0,0,0,0.4);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation: coinPop 0.5s ease;
+}
+/* heads/tails label */
+.coin-label {
+  position: absolute;
+  bottom: -18px;
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.coin-hole {
+  width: 14px;
+  height: 14px;
+
+  background: #111;
+  border-radius: 2px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  box-shadow:
+    inset 0 0 3px rgba(0,0,0,0.8);
+}
+
+.coin-highlight {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 25% 25%,
+    rgba(255,255,255,0.25),
+    transparent 60%
+  );
+
+  pointer-events: none;
+}
+
+/* =========================
+   COINS (RITUAL CORE)
+========================= */
+
+
+.coin-area {
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.coin {
+  font-size: 11px;
+  font-weight: bold;
+  color: rgba(30, 20, 10, 0.6);
+  letter-spacing: 1px;
+}
+
+@keyframes coinPop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================
+          MEANINGS
+========================= */
+
+.meanings {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(200,169,107,0.3);
+}
+
+.meaning-title-main {
+  text-align: center;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  opacity: 0.7;
+}
+
+.meaning-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.meaning-grid div {
+  padding: 8px;
+  border-left: 2px solid #c8a96b;
+}
+
+/* NEW LAYOUT */
+
+.top-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+
+/* =========================
+   MAIN LAYOUT
+========================= */
+
+.ritual-container {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+  padding: 40px 0px 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* =========================
+   COINS
+========================= */
+
+.coin-area {
+  min-height: 120px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+
+/* =========================
+   HEXAGRAMS ROW
+========================= */
+
+.hexagrams-wrapper {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+
+  align-items: start;
+  justify-items: center;
+}
+
+.hexagram-column {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+/* =========================
+   RESULT AREA
+========================= */
+
+.result-area {
+  width: 100%;
+}
+
+
+/* =========================
+   RESULT GRID
+========================= */
+
+.results-grid {
+  width: 100%;
+
+  display: grid;
+
+    grid-template-columns: minmax(300px, 1fr) 220px minmax(300px, 1fr);
+
+  gap: 40px;
+
+  align-items: start;
+}
+
+.result-area {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.change-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding-top: 120px;
+}
+
+.changing-lines {
+  text-align: center;
+}
+
+.changing-title {
+  font-size: 12px;
+  letter-spacing: 3px;
+
+  margin-bottom: 10px;
+
+  color: #c8a96b;
+}
+
+.changing-values {
+  font-size: 18px;
+  letter-spacing: 4px;
+}
+
+
+/* =========================
+   RESULT CARD
+========================= */
+
+.result-card {
+  width: 100%;
+
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+
+  max-width: 100%;
+
+  min-width: 0;
+}
+
+
+/* =========================
+   MEANINGS
+========================= */
+
+.meanings {
+  width: 100%;
+  margin-top: 30px;
+  overflow: hidden;
+}
+
+
+.meaning-grid {
+  display: grid;
+
+grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+.meaning-grid div {
+  padding: 14px;
+
+  border-left: 2px solid #c8a96b;
+
+  background: rgba(255,255,255,0.03);
+
+  line-height: 1.6;
+
+  min-height: 120px;
+}
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+  .hexagrams-wrapper,
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+}
+
+@media (max-width: 1400px) {
+
+  .meaning-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .meaning-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.iching-page {
+  overflow-x: hidden;
+  background: #ffffff; /* albo inny kolor */
+  color: #111;
+}
+
+.iching-app {
+  background: #f6f1e6; /* kremowy */
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Return to home page*/
+
+.top-nav {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ffffff;
+
+  padding: 20px 0;
+}
+
+.home-link {
+  color: #575e81;
+  text-decoration: none;
+
+  letter-spacing: 2px;
+  font-size: 14px;
+
+  border-bottom: 1px solid transparent;
+
+  transition: 0.3s ease;
+}
+
+.home-link:hover {
+  border-bottom: 1px solid #c8a96b;
+  color: #c8a96b;
+}
+
+/*BuyMeACoffee.com*/
+
+.support-section {
+  width: 100%;
+  max-width: 900px;
+
+  margin: 10px auto;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 10px;
+
+  align-items: center; /* pionowe centrowanie */
+}
+
+.bmc-button {
+  display: inline-block;
+
+  padding: 14px 24px;
+
+  border: 1px solid #c8a96b;
+  color: #e8dcc0;
+
+  text-decoration: none;
+
+  letter-spacing: 2px;
+
+  transition: 0.3s ease;
+}
+
+.support-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bmc-button:hover {
+  background: #c8a96b;
+  color: #111;
+}
+
+.support-text {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.support-section script {
+  justify-self: center;
+}
+
+@media (max-width: 768px) {
+  .support-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
