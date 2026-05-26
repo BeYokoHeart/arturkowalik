@@ -5,8 +5,8 @@ function initTheme() {
 
     const hour = new Date().getHours();
 
-    // noc: 20–6
-    isNight = (hour >= 20 || hour < 4);
+    // noc: 22–6
+    isNight = (hour >= 22 || hour < 4);
 
     document.body.classList.toggle("night", isNight);
 
